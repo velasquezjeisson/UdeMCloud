@@ -5,8 +5,9 @@ from sklearn.model_selection import train_test_split
 
 def main(args):
     # Leer el archivo CSV
-    df = pd.read_csv(args.input_file)
-    
+    df = pd.read_csv(args.input_file, delimiter=',', header=0, on_bad_lines='skip')
+    df.replace(r'^\s*$', np.nan, regex=True, inplace=True)
+    df.dropna(inplace=True)
     # Separar las características y la variable objetivo
     X = df.drop('Churn', axis=1)
     y = df['Churn']
