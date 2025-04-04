@@ -6,26 +6,29 @@ import subprocess
 import sys
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-# Instalar TensorFlow si no está instalado
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
+
+# Instalar TensorFlow y NumPy si no están instalados
 try:
     import tensorflow as tf
+    from tensorflow.keras.utils import to_categorical
+    from tensorflow.keras.models import Sequential
+    from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Activation
+    from tensorflow.keras.regularizers import l2
+    from tensorflow.keras.preprocessing.image import ImageDataGenerator
+    from tensorflow.keras.optimizers import Adam
+    from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "tensorflow"])
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "tensorflow", "numpy"])
     import tensorflow as tf
-    
-from tensorflow import keras
-from tensorflow.keras.utils import to_categorical
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Activation
-from tensorflow.keras.regularizers import l2
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
-from tensorflow.keras.layers import Dense
-from tensorflow.keras import layers
-from sklearn.metrics import classification_report
-
-
+    from tensorflow.keras.utils import to_categorical
+    from tensorflow.keras.models import Sequential
+    from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Activation
+    from tensorflow.keras.regularizers import l2
+    from tensorflow.keras.preprocessing.image import ImageDataGenerator
+    from tensorflow.keras.optimizers import Adam
+    from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 
 try:
     from tqdm import tqdm
@@ -36,7 +39,7 @@ except ImportError:
 try:
     import cv2
 except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "opencv-python-headless"])
+   ([sys.executable, "-m", "pip", "install", "opencv-python-headless"])
     import cv2
 
 def assign_label(img,DOG_emotion_type):
