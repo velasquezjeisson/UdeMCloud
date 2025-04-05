@@ -46,13 +46,16 @@ def main(args):
     os.makedirs(args.train_output, exist_ok=True)
     os.makedirs(args.validation_output, exist_ok=True)
     os.makedirs(args.test_output, exist_ok=True)
-
-    X_train.to_csv(os.path.join(args.train_output, 'X_train.csv'), index=False, header=False)
-    y_train.to_csv(os.path.join(args.train_output, 'y_train.csv'), index=False, header=False)
-    X_val.to_csv(os.path.join(args.validation_output, 'X_val.csv'), index=False, header=False)
-    y_val.to_csv(os.path.join(args.validation_output, 'y_val.csv'), index=False, header=False)
-    X_test.to_csv(os.path.join(args.test_output, 'X_test.csv'), index=False, header=False)
-    y_test.to_csv(os.path.join(args.test_output, 'y_test.csv'), index=False, header=False)
+    
+    train_df = pd.concat([y_train, X_train], axis=1)
+    val_df = pd.concat([y_val, X_val], axis=1)
+    test_df = pd.concat([y_test, X_test], axis=1)
+    
+    train_df.to_csv(os.path.join(args.train_output, 'train.csv'), index=False, header=False, sep=',')
+    val_df.to_csv(os.path.join(args.validation_output, 'validation.csv'), index=False, header=False, sep=',')
+    #test_df.to_csv(os.path.join(args.test_output, 'test.csv'), index=False, header=False, sep=',')
+    X_test.to_csv(os.path.join(args.test_output, 'X_test.csv'), index=False, header=False, sep=',')
+    y_test.to_csv(os.path.join(args.test_output, 'y_test.csv'), index=False, header=False, sep=',')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
